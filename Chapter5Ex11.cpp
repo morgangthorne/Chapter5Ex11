@@ -24,7 +24,6 @@ int RandomNumberGenerator(int x, int y);
 
 
 
-
 //Function for random number generator. Gives X and Y variable random value
 int RandomNumberGenerator(int x, int y) {
     random_device R;
