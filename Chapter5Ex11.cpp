@@ -1,16 +1,14 @@
 /*
 Filename: Chapter5Ex11.cpp
 Programmer: Morgan Thorne
-Date: April 2025
-Requirements: 
-Write a program that can be used as a math tutor for a student, program should display two random numbers
-The program should wait for the student to answer, if correct show congratulations message
-If wrong show incorrect message and then the answer
-All user input should be validated.
-This program should have at least 3 modules ( including the main module) and should be repeatable.
-Each module should have a brief comment on what the module is intended to do.
+Date: March 2025
+Requirements:
+Write program that can be used as a math tutor
+1: Program should display two random numbers to be added
+2: Program should pause while students works on problem
+3: When student is ready they can press a key and the program will show correct answer
+Use at least 3 modules
 */
-
 
 #include <iostream>
 #include <string>
@@ -21,6 +19,7 @@ using namespace std;
 void DisplayMessage(string text);
 bool GetRepeatInfo();
 int RandomNumberGenerator(int x, int y);
+void DisplayEquation();
 
 
 
@@ -47,48 +46,29 @@ bool GetRepeatInfo() {
     return (choice == 'Y' || choice == 'y');
 }
 
-//Displays equation then prompts user to input their answer, and return boolean indicationg whether wrong or correct
-bool PromptUserAnswerValidate(int Rx, int Ry, int result) {
-    int answer;
+//Displays equation for user, user has to press enter to get answer
+void DisplayEquation(int Rx, int Ry, int result) {
     cout << setw(9) << right << Rx << endl;
     cout << "+" << setw(8) << right << Ry << endl;
-    cout << "_________\n";
-    cin >> answer;
-    if (answer == result) {
-        return true;
-    }
-    else
-        return false;
+    cout << "_________";
+    cin.ignore();
+    cin.get();
+    cout << setw(9) << right << result << endl;
 }
 
 //Main function, displays welcome message, while statement allows equation to be displayed and then repeated or ended
 int main()
 {
-    DisplayMessage("\t Welcome to Math Tutor V1.0\nEnter in your answer to check whether its right or wrong ");
+    DisplayMessage("\t Welcome to Math Tutor V1.0\nPress Enter to check sum after working the problem ");
     char repeat = 'Y';
     int Xvariable;
     int Yvariable;
-    int answer;
-    int result;
-    bool isanswercorrect;
     while (repeat) {
         Xvariable = RandomNumberGenerator(0, 100);
         Yvariable = RandomNumberGenerator(0, 100);
 
-        //Bool isanswercorrect will return as true or false if user answer is correct or incorrect
-        isanswercorrect = PromptUserAnswerValidate(Xvariable, Yvariable, result = Xvariable + Yvariable);
-
-
-        if (isanswercorrect) {
-            cout << "Correct!\n";
-        }
-        else {
-            cout << "Incorrect!\nThe sum of " << Xvariable << " + " << Yvariable << " = " << result << endl;
-        }
-
+        DisplayEquation(Xvariable, Yvariable, Xvariable + Yvariable);
 
         repeat = GetRepeatInfo();
-
     }
-
 }
